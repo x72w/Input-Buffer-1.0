@@ -1,10 +1,9 @@
 name: Build Android64
 
-on:
+"on":
 workflow_dispatch:
 push:
-branches:
-- "**"
+branches: ["**"]
 
 jobs:
 build:
@@ -12,12 +11,11 @@ name: Android64
 runs-on: ubuntu-latest
 steps:
 - uses: actions/checkout@v4
-
-  - name: Build the mod
-    uses: geode-sdk/build-geode-mod@main
-    with:
-      target: Android64
-      combine: true
+- name: Build the mod
+uses: geode-sdk/build-geode-mod@main
+with:
+target: Android64
+combine: true
 
 package:
 name: Package build
@@ -26,8 +24,7 @@ needs: build
 steps:
 - uses: geode-sdk/build-geode-mod/combine@main
 id: build
-
-  - uses: actions/upload-artifact@v4
-    with:
-      name: Build Output
-      path: ${{ steps.build.outputs.build-output }}
+- uses: actions/upload-artifact@v4
+with:
+name: Build Output
+path: ${{ steps.build.outputs.build-output }}
